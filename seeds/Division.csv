@@ -1,0 +1,10 @@
+Divisionkey,SPID,DivisionShortCode,DivisionName,DivisionHead,DeputyDivisionHead,ActiveFlag,CreatedDate
+1,1,CP,Cell Production,45,,1,24-07-2025 16:04
+2,2,MP,Module Production,53,,1,24-07-2025 16:04
+3,3,AD,Administration,,,1,24-07-2025 16:04
+4,4,GP,General Production,21,,1,24-07-2025 16:04
+5,5,QA,Quality Assurance,774,207,1,24-07-2025 16:04
+6,6,AP,A-Type Project,246,,0,24-07-2025 16:04
+7,7,AF,Accounts and Finance ,17,,1,24-07-2025 16:04
+14,8,AP,A-Pack Production,622,,1,24-07-2025 16:04
+15,9,AC,A-Cell Production,632,641,1,24-07-2025 16:04

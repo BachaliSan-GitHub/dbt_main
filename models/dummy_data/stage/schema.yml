@@ -5,4 +5,4 @@ sources:
     database: DBT_TRAINING
     schema: DBT_SANKARAMMAB
     tables:
-      - name: division
+      - name: Division

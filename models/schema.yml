@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: DBT_TRAINING
+    schema: DBT_SANKARAMMAB
+    tables:
+      - name: division

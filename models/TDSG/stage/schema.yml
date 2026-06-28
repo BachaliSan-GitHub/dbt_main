@@ -6,3 +6,17 @@ sources:
     schema: DBT_SANKARAMMAB
     tables:
       - name: Department
+      - name: Division
+      - name: divisionMapping
+      - name: employees
+      - name: HolidayCalander
+      - name: KPIIndicator
+      - name: prd_approvaltaskmaster
+      - name:  prd_po_master
+      - name: PURCHASERHANDLINGDIVISION_PRD
+      - name: PRD_PURCHASING_GROUP_MASTER
+      - name: STG_MANAGEHISTORYMASTER
+      - name: STG_PORMASTER
+      - name: STG_RINGIMASTER
+      - name: RINGIPORMAP
+      - name : GRN_DETAILS

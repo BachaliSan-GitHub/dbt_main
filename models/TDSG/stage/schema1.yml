@@ -1,0 +1,128 @@
+version: 2
+
+models:
+
+  - name: stg_department
+    description: "Stage model for Department master."
+    columns:
+      - name: departmentkey
+        tests:
+          - not_null
+          - unique
+
+  - name: STG_division
+    description: "Stage model for Division master."
+    columns:
+      - name: divisionkey
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_divisionmapping
+    description: "Stage model for Division Mapping."
+    columns:
+      - name: spid
+        tests:
+          - not_null
+
+  - name: stg_employees
+    description: "Stage model for Employee master."
+    columns:
+      - name: employeekey
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_PRD_PURCHASING_GROUP_MASTER
+    description: "Stage model for Purchasing Group master."
+    columns:
+      - name: purchasinggroupkey
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_PURCHASERHANDLINGDIVISION_PRD
+    description: "Stage model for Purchaser Handling Division."
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_KPIIndicator
+    description: "Stage model for KPI Indicator."
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: STG_HOLIDAYCALANDER
+    description: "Stage model for Holiday master."
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+      - name: holidaydate
+        tests:
+          - not_null
+
+  - name: stg_GRN_DETAILS
+    description: "Stage model for GRN Details."
+    columns:
+      - name: purchasingdocument
+        tests:
+          - not_null
+
+      - name: item
+        tests:
+          - not_null
+
+  - name: stg_prd_po_master
+    description: "Stage model for PO Master."
+    columns:
+      - name: pornumber
+        tests:
+          - not_null
+
+  - name: stg_STG_MANAGEHISTORYMASTER
+    description: "Stage model for Manage History."
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_prd_approvaltaskmaster
+    description: "Stage model for Approval Task."
+    columns:
+      - name: approvertaskid
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_RINGIPORMAP
+    description: "Stage model for Ringi POR Mapping."
+    columns:
+      - name: ringipormapkey
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_STG_RINGIMASTER
+    description: "Stage model for Ringi Master."
+    columns:
+      - name: ringikey
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_STG_PORMASTER
+    description: "Stage model for POR Master."
+    columns:
+      - name: por_id
+        tests:
+          - not_null
+          - unique

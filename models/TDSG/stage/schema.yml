@@ -9,8 +9,9 @@ sources:
       - name: Division
       - name: divisionMapping
       - name: employees
-      - name: HolidayCalander
-      - name: KPIIndicator
+      - name : HOLIDAYCALANDER
+      - name: DATE
+      - name : KPIIndicator
       - name: prd_approvaltaskmaster
       - name:  prd_po_master
       - name: PURCHASERHANDLINGDIVISION_PRD
@@ -20,3 +21,5 @@ sources:
       - name: STG_RINGIMASTER
       - name: RINGIPORMAP
       - name : GRN_DETAILS
+
+      

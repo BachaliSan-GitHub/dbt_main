@@ -1,72 +1,79 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key='por_id',
-        incremental_strategy='merge',
-        on_schema_change='sync_all_columns'
-    )
-}}
+{{ config(
+    materialized='view'
+) }}
 
-with filtered_source as (
+with por_ringi as (
 
     select *
-    from {{ ref('int_procurement_kpi') }}
+    from {{ ref('INT_por_ringi') }}
 
-    -- Filter data before any new timestamp generation to avoid duplicate inserts
-    {% if is_incremental() %}
-    where current_timestamp() >= (
-        select coalesce(
-            max(updated_date),
-            to_timestamp('1900-01-01 00:00:00')
-        )
-        from {{ this }}
-    )
-    {% endif %}
+),
+
+po_grn as (
+
+    select *
+    from {{ ref('int_po_grn') }}
 
 ),
 
 final as (
 
     select
-        s.por_id,
-        s.por_no,
-        s.po_no,
-        s.ringino,
 
-        s.departmentid,
+        pr.por_id,
+        pr.por_no,
+        pr.po_no,
 
-        s.vendorcode,
-        s.vendorname,
+        pr.ringino,
+        pr.departmentid,
+        pr.purchasinggroupid,
+        pr.purchasingorgid,
+        pr.ringi_createdby,
 
-        s.por_value,
-        s.total_povalue,
-        s.povalueinr,
+        pr.created_date,
+        pr.required_date,
+        pr.po_date,
 
-        s.cost_saving,
-        s.cost_saving_pct,
+        pr.ringi_submitted_date,
 
-        s.tat_days,
-        s.tat_bucket,
+        pr.por_value,
+        pr.por_status,
+        pr.ringi_status,
 
-        s.delivery_performance,
-        s.on_time_grn,
-        s.pending_delivery,
+        pr.tat_days,
+        pr.tat_bucket,
 
-        s.final_procurement_status as procurement_status,
+        pg.vendorcode,
+        pg.vendorname,
 
-        -- Preserves original created_date from target table if it already exists
-        {% if is_incremental() %}
-            coalesce(
-                (select t.created_date from {{ this }} t where t.por_id = s.por_id limit 1), 
-                current_timestamp()
-            ) as created_date,
-        {% else %}
-            current_timestamp() as created_date,
-        {% endif %}
+        pg.division,
 
-        current_timestamp() as updated_date
+        pg.currency,
 
-    from filtered_source s
+        pg.podate,
+        pg.deliverydate,
+
+        pg.porvalue,
+        pg.total_povalue,
+        pg.povalueinr,
+
+        pg.grn_quantity,
+        pg.delivered_quantity,
+        pg.pending_quantity,
+
+        pg.grn_date,
+        pg.expected_delivery_date,
+
+        pg.total_order_quantity,
+        pg.delivery_performance,
+
+        pg.on_time_grn,
+        pg.pending_delivery
+
+    from por_ringi pr
+
+    left join po_grn pg
+        on pr.po_no = pg.ponumber
 
 )
 

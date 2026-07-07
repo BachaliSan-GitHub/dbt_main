@@ -1,0 +1,308 @@
+version: 2
+
+models:
+
+  - name: DIM_DATE
+    description: Date dimension used for calendar, reporting, and time-based analysis.
+
+    columns:
+      - name: datekey
+        description: Surrogate key for the date dimension.
+        tests:
+          - unique
+          - not_null
+
+      - name: fulldate
+        description: Full calendar date.
+        tests:
+          - not_null
+
+      - name: day
+        description: Day of the month.
+
+      - name: month
+        description: Month number.
+
+      - name: quarter
+        description: Quarter number.
+
+      - name: year
+        description: Calendar year.
+
+      - name: dayofweek
+        description: ISO day number of the week.
+
+      - name: dayname
+        description: Name of the day.
+
+      - name: isweekend
+        description: Indicates whether the date falls on a weekend.
+
+      - name: isholiday
+        description: Indicates whether the date is a holiday.
+
+      - name: isworkingday
+        description: Indicates whether the date is a working day.
+
+      - name: lastupdateddate
+        description: Record last updated timestamp.
+
+  - name: DIM_Department
+    description: Department dimension containing organizational department information.
+
+    columns:
+      - name: departmentkey
+        description: Unique department identifier.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('DIM_Department')
+                field: departmentkey
+
+      - name: spid
+        description: Source system identifier.
+
+      - name: costcenterkey
+        description: Associated cost center identifier.
+
+      - name: divisionkey
+        description: Associated division identifier.
+        tests:
+          - relationships:
+              to: ref('dim_division')
+              field: divisionkey
+
+      - name: purchasinggroupkey
+        description: Associated purchasing group identifier.
+
+      - name: departmentname
+        description: Department name.
+
+      - name: departmenthead
+        description: Department head employee identifier.
+
+      - name: activeflag
+        description: Department active status flag.
+
+      - name: createddate
+        description: Department creation date.
+
+      - name: effective_startdate
+        description: Effective start date for SCD tracking.
+
+      - name: effective_enddate
+        description: Effective end date for SCD tracking.
+
+      - name: is_current
+        description: Indicates current active version of the department record.
+
+  - name: DIM_Division
+    description: Division dimension containing business division information.
+
+    columns:
+      - name: divisionkey
+        description: Unique division identifier.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('DIM_Division')
+                field: divisionkey
+
+      - name: spid
+        description: Source system identifier.
+
+      - name: divisionshortcode
+        description: Short code for the division.
+
+      - name: divisionname
+        description: Division name.
+
+      - name: divisionhead
+        description: Division head employee identifier.
+
+      - name: deputydivisionhead
+        description: Deputy division head employee identifier.
+
+      - name: activeflag
+        description: Division active status flag.
+
+      - name: createddate
+        description: Division creation date.
+
+      - name: effective_startdate
+        description: Effective start date for SCD tracking.
+
+      - name: effective_enddate
+        description: Effective end date for SCD tracking.
+
+      - name: is_current
+        description: Indicates current active version of the division record.
+
+  - name: DIM_Employees
+    description: Employee dimension containing employee master and reporting hierarchy information.
+
+    columns:
+      - name: employeekey
+        description: Unique employee identifier.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('DIM_Employees')
+                field: employeekey
+
+
+      - name: departmentkey
+        description: Department associated with the employee.
+        tests:
+          - relationships:
+              to: ref('dim_department')
+              field: departmentkey
+
+      - name: reportingmanagerkey
+        description: Reporting manager employee identifier.
+
+      - name: plantkey
+        description: Plant or location associated with the employee.
+
+      - name: employeecode
+        description: Employee code.
+
+      - name: employeename
+        description: Employee full name.
+
+      - name: costcenter
+        description: Cost center assigned to the employee.
+
+      - name: empdesignation
+        description: Employee designation or job title.
+
+      - name: employeetype
+        description: Type or category of employee.
+
+      - name: roleid
+        description: Role identifier assigned to the employee.
+
+      - name: isadmin
+        description: Indicates whether the employee has administrator privileges.
+
+      - name: isvendorsync
+        description: Indicates vendor synchronization status.
+
+      - name: createddate
+        description: Employee record creation date.
+
+      - name: effective_startdate
+        description: Effective start date for SCD tracking.
+
+      - name: effective_enddate
+        description: Effective end date for SCD tracking.
+
+      - name: is_current
+        description: Indicates current active version of the employee record.
+
+  - name: DIM_KPIIndicator
+    description: KPI indicator dimension containing procurement KPI targets and metrics.
+
+    columns:
+      - name: kpikey
+        description: Unique KPI identifier.
+        tests:
+          - unique
+          - not_null
+
+      - name: kpiyear
+        description: KPI reporting year.
+
+      - name: kpimonth
+        description: KPI reporting month.
+
+      - name: kpi
+        description: KPI name.
+
+      - name: target
+        description: KPI target value.
+
+      - name: createdat
+        description: KPI record creation timestamp.
+
+      - name: is_active
+        description: Indicates whether the KPI is active.
+
+      - name: lastupdateddate
+        description: Record last update timestamp.
+
+  - name: DIM_PRD_PURCHASING_GROUP_MASTER
+    description: Purchasing group dimension containing procurement group information.
+
+    columns:
+      - name: purchasinggroupkey
+        description: Unique purchasing group identifier.
+        tests:
+          - unique
+          - not_null
+
+      - name: spid
+        description: Source system identifier.
+
+      - name: groupcode
+        description: Purchasing group code.
+
+      - name: groupname
+        description: Purchasing group name.
+
+      - name: activeflag
+        description: Indicates active status of purchasing group.
+
+      - name: createddate
+        description: Record creation timestamp.
+
+      - name: lastupdateddate
+        description: Record last update timestamp.
+
+  - name: DIM_PURCHASERHANDLINGDIVISION_PRD
+    description: Purchaser handling division dimension mapping purchasers to divisions and departments.
+
+    columns:
+      - name: purchaserkey
+        description: Unique purchaser identifier.
+        tests:
+          - unique
+          - not_null
+
+      - name: purchaserid
+        description: Purchaser employee identifier.
+
+      - name: purchasername
+        description: Purchaser name.
+
+      - name: division
+        description: Division assigned to the purchaser.
+
+      - name: department
+        description: Department assigned to the purchaser.
+
+      - name: fromdate
+        description: Assignment effective start date.
+
+      - name: todate
+        description: Assignment effective end date.
+
+      - name: startdate
+        description: Record start date.
+
+      - name: is_active
+        description: Indicates whether the assignment is active.
+
+      - name: quarter
+        description: Business quarter.
+
+      - name: year
+        description: Business year.
+
+      - name: modifieddate
+        description: Record modification timestamp.
+
+      - name: createddate
+        description: Record creation timestamp.
+
+      - name: lastupdateddate
